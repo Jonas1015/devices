@@ -1,0 +1,239 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}Products{% endblock %}
+{% load crispy_forms_tags %}
+{% load humanize %}
+{% block content %}
+<!-- Css links -->
+<link rel="stylesheet" href="{% static 'admin/css/admin-temp.css' %}">
+<!-- End of css -->
+<div class="product col-xs-10 col-lg-10 col-md-10 offset-1 col-sm-12 mt-5 mb-5">
+  <div class="container-fluid category-card">
+    <div class="row mt-2">
+      <div class="col-md-12">
+        <div class="message w3-center">
+          <div class="message_column">
+            {% if messages %}
+              {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show w3-animate-top" role="alert">
+                  {{message}}
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              {% endfor %}
+            {% endif %}
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 col-sm-12">
+        <div class="content w3-card mb-5 p-4">
+          <h1>Products</h1>
+          <a href="#" class="button btn mb-4" data-toggle="modal" data-target="#formModal">Add Product</a>
+
+          <!-- Modal -->
+          <div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title text-dark" id="formModalLabel">Add Product</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form class="col-xs-12 col-lg-12 col-md-12 col-sm-12" action="{% url 'create-product' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                      <!-- {{ add_product_form | crispy}} -->
+                      <div class="form-group">
+                        <label for="">Name*</label>
+                        <input type="text" class="form-control" name="name" value="" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="">Description*</label>
+                        <input type="text" class="form-control" name="description" value="" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="category">Category*</label>
+                        <input type="text" list="categories_list" name="category" class="form-control" required>
+                        <datalist id="categories_list">
+                          {% for category in categories %}
+                            <option value="{{ category.name }}">
+                          {% endfor %}
+                        </datalist>
+                      </div>
+                      <div class="form-group">
+                        <label for="">Price*</label>
+                        <input type="number" mine="0" class="form-control" name="price" value="" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="">Discount Price</label>
+                        <input type="number" min="0" class="form-control" name="discount_price" value="0">
+                      </div>
+                      <div class="form-group">
+                        <label for="">Image*</label>
+                        <input type="file" accept="image/*" class="form-control" name="image" value="">
+                      </div>
+                      <div id="div_id_still_instock" class="form-check">
+                        <input type="checkbox" name="still_instock" class="checkboxinput form-check-input" id="id_still_instock" checked>
+                        <label for="id_still_instock" class="form-check-label">Available</label>
+                      </div>
+
+                      <button type="submit" class="btn button mt-3">Save</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-striped" id="table_id">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Description</th>
+                  <th>Category</th>
+                  <th>Price</th>
+                  <th>Discount Price</th>
+                  <th>Available</th>
+                  <th>Image</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% if products %}
+                {% for product in products %}
+                    <tr>
+                      <td>{{ forloop.counter }}</td>
+                      <td>{{ product.name }}</td>
+                      <td>{{ product.description }}</td>
+                      <td>{{ product.category.name }}</td>
+                      <td>{{ product.price }}</td>
+                      <td>{{ product.discount_price }}</td>
+                      <td>
+                        {% if product.still_instock %}
+                          <i class="fa fa-check text-success"></i>
+                        {% else %}
+                          <i class="fa fa-times text-danger"></i>
+                        {% endif %}
+                      </td>
+                      <td><a href="{{ product.image.url }}" target="_blank" class="text-info"><i class="fa fa-image fa-lg"></i> View</a></td>
+                      <td>
+                        <a href="#" class="btn btn-outline-primary" data-toggle="modal" data-target="#updateProduct{{product.id}}"><i class="fa fa-edit"></i></a>
+                        <a href="#" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteproduct{{product.id}}"><i class="fa fa-trash"></i></a>
+                      </td>
+                    </tr>
+
+                    <!-- update Modal -->
+                    <div class="modal fade" id="updateProduct{{product.id}}" tabindex="-1" aria-labelledby="updateProductLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title text-dark" id="updateProductLabel">Update Product</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <form class="" action="{% url 'update-product' product.id %}" method="post" enctype="multipart/form-data">
+                              {% csrf_token %}
+                              <div class="form-group">
+                                <label for="">Name*</label>
+                                <input type="text" class="form-control" name="name" value="{{ product.name }}" required>
+                              </div>
+                              <div class="form-group">
+                                <label for="">Description*</label>
+                                <input type="text" class="form-control" name="description" value="{{ product.description }}" required>
+                              </div>
+                              <div class="form-group">
+                                <label for="">Category*</label>
+                                <input type="text" list="categories_list" name="category" value="{{ product.category.name }}" class="form-control" required>
+                                <datalist id="categories_list">
+                                  {% for category in categories %}
+                                    <option value="{{ category.name }}">
+                                  {% endfor %}
+                                </datalist>
+                              </div>
+                              <div class="form-group">
+                                <label for="">Price*</label>
+                                <input type="number" mine="0" class="form-control" name="price" value="{{ product.price }}">
+                              </div>
+                              <div class="form-group">
+                                <label for="">Discount Price</label>
+                                <input type="number" min="0" class="form-control" name="discount_price" value="{{ product.discount_price }}">
+                              </div>
+                              <div class="form-group">
+                                <p class="file-upload">Currently: <a href="{{ product.image.url }}" target="_blank" >Click to view</a><br>
+
+                                <label for="image">Change Image*</label>
+                                <input type="file" accept="image/*" class="form-control" name="image">
+                              </div>
+                              <div id="div_id_still_instock" class="form-check">
+                                <input type="checkbox" name="still_instock" class="checkboxinput form-check-input" id="id_still_instock" {% if product.still_instock %} checked {% endif %}>
+                                <label for="id_still_instock" class="form-check-label">Available</label>
+                              </div>
+                              <div class="form-group mt-3">
+                                <a class="btn btn-danger" style="color: #fff;" data-dismiss="modal">Cancel</a>
+                                <button type="submit" class="btn button">click to save product</button>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- delete Modal -->
+                    <div class="modal fade" id="deleteproduct{{product.id}}" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="deleteproductLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="deleteproductLabel">Confirm Product Deletion</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <p>Are you sure, you want to delete?</p>
+                          </div>
+                          <div class="p-4">
+                            <button type="button" class="btn button" data-dismiss="modal"">Cancel</button>
+                            <a href="{% url 'delete-product' product.id %}" class="btn btn-outline-danger">Yes, continue</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {% endfor %}
+                  {% else %}
+                    <tr>
+                      <td colspan="9" class="text-center"><strong>NO DATA LOADED</strong></td>
+                    </tr>
+                  {% endif %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+
+
+{% block js %}
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.20/af-2.3.4/b-1.6.1/b-colvis-1.6.1/b-html5-1.6.1/b-print-1.6.1/cr-1.5.2/fc-3.3.0/kt-2.5.1/r-2.2.3/rg-1.1.1/rr-1.2.6/sl-1.3.1/datatables.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('#table_id').DataTable({
+        dom: 'B<"clear">lfrtip',
+        button: {
+          name: 'primary',
+          button: ['copy', 'csv', 'excel', 'pdf']
+        }
+      });
+    });
+  </script>
+
+{% endblock%}

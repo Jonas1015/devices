@@ -1,0 +1,32 @@
+body {
+  --theme: #035766;
+
+}
+
+.button {
+  border:1px solid var(--theme) !important;
+  color: var(--theme);
+}
+
+.button:hover{
+  border:1px solid var(--theme) !important;
+  background-color: var(--theme);
+  color: #ffffff;
+}
+
+/* ADMIN RESPONSIVENESS */
+@media only screen and (min-width: 280px) and (max-width: 599px){
+  .category-card {
+    position: relative !important;
+    left: -10vw !important;
+    width: 90vw !important;
+  }
+}
+
+@media only screen and (min-width: 599px) and (max-width: 767px){
+
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+
+}

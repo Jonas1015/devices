@@ -46,25 +46,25 @@
      font-weight: normal;
      line-height: normal;
      color: #111111;
-     margin: 0 
+     margin: 0
 }
  h1 {
-     font-size: 24px 
+     font-size: 24px
 }
  h2 {
-     font-size: 22px 
+     font-size: 22px
 }
  h3 {
-     font-size: 18px 
+     font-size: 18px
 }
  h4 {
-     font-size: 16px 
+     font-size: 16px
 }
  h5 {
-     font-size: 14px 
+     font-size: 14px
 }
  h6 {
-     font-size: 13px 
+     font-size: 13px
 }
  *, *::after, *::before {
      -webkit-box-sizing: border-box;
@@ -74,7 +74,7 @@
  h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
      color: #212121;
      text-decoration: none!important;
-     opacity: 1 
+     opacity: 1
 }
  button:focus {
      outline: none;
@@ -347,7 +347,7 @@
 }
  .logo {
      float: left;
-     
+
      padding-bottom: 6px;
 }
  nav.main-menu {
@@ -356,7 +356,7 @@
      margin-left: 0;
 }
 
- 
+
  .right_cart_section {
      float: right;
      width: auto;
@@ -885,7 +885,7 @@
 }
  .main-menu ul li:first-child {
      margin-left: 0;
-    
+
 }
  .main-menu ul>li>ul {
      opacity: 0;
@@ -958,7 +958,7 @@
 /*--------------------------------------------------------------------- layout new css ---------------------------------------------------------------------*/
  .menu-area {
     float: right;
-    
+
 }
 
 
@@ -991,9 +991,9 @@ width: 24%;
  .padding_left0 {
     padding-left: 0px;
 }
- 
+
  .header {
-   
+
      z-index: 999;
      width: 100%;
      padding: 20px 30px 20px 30px;
@@ -1093,7 +1093,7 @@ margin-right: 10px;
      width: 100%;
      bottom: auto;
      padding: 0;
-     margin-top: 90px 
+     margin-top: 90px
 }
  .img_bg {
      text-align: center;
@@ -1118,7 +1118,7 @@ margin-right: 10px;
      line-height: 58px;
      color: #fff;
 }
- 
+
  .black_nolmal {
      font-weight: normal;
      color: #000;
@@ -1137,11 +1137,12 @@ margin-right: 10px;
 .padding_dd {padding: 0px 50px;}
 .carousel-control-next {display: none;}
 .carousel-control-prev {display: none;}
+
 /** about section **/
  .about {
      background-color: #fff;
      box-shadow: #ddd 0px 0px 13px 5px;
-     margin: 90px 30px 20px 30px;     
+     margin: 90px 30px 20px 30px;
 }
  .about .about-box {
 text-align: left;
@@ -1149,7 +1150,7 @@ float: right;
 width: 100%;
 max-width: 539px;
 padding: 40px 0;
-    
+
 }
 
 
@@ -1198,7 +1199,7 @@ border-radius: 30px;
  }
 
 
- .about .about-box a:hover{ 
+ .about .about-box a:hover{
      background-color: #035766;
      border: #035766 solid 1px;
     color: #fff;
@@ -1285,7 +1286,7 @@ display: block;
 
  .titlepage {
     text-align: center;
-     padding-bottom: 60px;
+     padding-bottom: 40px;
 }
 .titlepage span {padding-top: 30px; display: inline-block; font-size: 17px; color: #000;}
 .llow {
@@ -1306,8 +1307,8 @@ display: block;
 .clients {
      background: #fff;
      margin-top: 90px;
-   
-} 
+
+}
 .clients .titlepage {padding-bottom: 0px;}
 .clients .titlepage h2 {
     color: #000;
@@ -1324,12 +1325,12 @@ display: block;
      display: flex;
      align-items: center;
      flex-wrap: wrap;
-} 
+}
 
 .cross_inner h3 {
     text-align: left;
     padding-left: 60px;
-    padding-top: 58px;   
+    padding-top: 58px;
     font-size: 30px;
     line-height: 25px;
     padding-bottom: 58px;
@@ -1344,7 +1345,7 @@ color: #fff;
     background-attachment: fixed;
 }
 .testomonial_img figure {margin: 0;}
-.testomonial_img figure img  {width: 100%;} 
+.testomonial_img figure img  {width: 100%;}
 .testomonial_img i {
 display: flex;
 justify-content: center;
@@ -1414,9 +1415,9 @@ font-weight: normal;
 }
 
 .white_color {
-    background: #000; 
-    box-shadow: 0px 0px 11px 0px; 
-    opacity: 0.8;
+    background: #00001d;
+    box-shadow: 0px 0px 11px 0px;
+    opacity: 0.9;
     padding-bottom: 60px;
     border-radius: 40px;
     width: 80%;
@@ -1428,7 +1429,7 @@ font-weight: normal;
 
  .white_bg {
      background-color: #fff;
-     padding: 40px 30px 0px 30px 
+     padding: 40px 30px 0px 30px
 }
  .contact .titlepage {
      text-align: center;
@@ -1458,6 +1459,7 @@ font-weight: normal;
     border-radius: 1px;
     color:#837b7b;
     width: 100%;
+    border-radius: 5px;
 }
  .contact .contact_bg .textarea {
     margin-bottom: 25px;
@@ -1467,6 +1469,7 @@ font-weight: normal;
     border: #837b7b solid 1px;
     border-radius: 1px;
     padding-top: 50px;
+    border-radius: 5px;
 }
  .contact .contact_bg .send {
      font-size: 16px;
@@ -1489,7 +1492,6 @@ font-weight: normal;
 /** footer **/
  .footer {
      background: #3b3b3b;
-   
      padding-top: 60px;
 }
 
@@ -1500,31 +1502,29 @@ display: inline-block;
 margin-bottom: 30px;
 }
  .footer .address h3 {
-     color: #fff;
-font-size: 30px;
-line-height: 35px;
-font-weight: bold;
-padding-bottom: 20px;
-}
+    color: #fff;
+    font-size: 30px;
+    line-height: 35px;
+    font-weight: bold;
+    padding-bottom: 20px;
+    }
  .location_section {
      background-color: #fff;
      margin-bottom: 40px;
      border-radius: 10px;
      padding: 20px 35px;
 }
- 
- .news .newslatter {
-     padding: 7px 23px;
-box-shadow: inherit;
-border: inherit;
-width: 100%;
-font-size: 19px;
 
-margin-bottom: 20px;
-}
+ .news .newslatter {
+    padding: 7px 23px;
+    box-shadow: inherit;
+    border: inherit;
+    width: 100%;
+    font-size: 19px;
+    margin-bottom: 20px;
+  }
  .submit {
     padding: 9px 0;
-
     background: #035766;
     color: #fff;
     margin-left: -5px;
@@ -1556,7 +1556,7 @@ margin-bottom: 20px;
      padding-right: 4px;
 
 }
- 
+
  ul.social_link li a img {
     width: 30px;
      height: 30px;
@@ -1572,19 +1572,19 @@ margin-bottom: 20px;
 
 }
 
- 
+
 
  ul.Menu_footer li a {
      display: block;
      color: #fcfbfb;
      font-size: 17px;
-   
-    
+
+
 }
  ul.Menu_footer li a:hover{
      color: #2ea7a0;
 }
- 
+
 
  ul.loca li {
      color: #fcfbfb;
@@ -1606,7 +1606,7 @@ margin-bottom: 20px;
      font-size: 18px;
      line-height: 22px;
      text-align: center;
-   
+
 }
  .copyright a {
      color: #fff;

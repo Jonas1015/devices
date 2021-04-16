@@ -1,0 +1,172 @@
+body {
+  --theme: #035766;
+}
+
+
+.titlepage {
+   text-align: center;
+   padding-bottom: 10px;
+}
+
+.titlepage h3 {
+    font-size: 40px;
+}
+
+.titlepage span {padding-top: 30px; display: inline-block; font-size: 17px; color: #000;}
+.llow {
+   color: #035766;
+   font-weight: bold;
+}
+
+
+/* Catalog */
+
+.search {
+  width: 101.5%;
+  margin-bottom: 2vh;
+}
+
+.cat-container {
+  height: 70vh;
+}
+.cat-card .card-header h3 {
+  text: center;
+
+}
+.cat-card .card-header .price {
+  font-size: 0.8em;
+}
+.cat-card .card-header .discount-price {
+  font-size: 0.6em;
+}
+.cat-card img {
+  height: 100%;
+  width: 100%;
+  margin-left: 0vw;
+}
+
+/* Separate */
+
+.separate {
+  margin: 13vh 0;
+}
+
+/* Paginator */
+
+.paginator {
+  margin-left: 36%;
+  margin-top: 2vh;
+}
+
+
+.button {
+  border:1px solid var(--theme) !important;
+  color: var(--theme);
+}
+
+.button:hover{
+  border:1px solid var(--theme) !important;
+  background-color: var(--theme);
+  color: #ffffff;
+}
+
+/* CATALOG RESPONSIVENESS */
+
+
+@media only screen and (min-width: 280px) and (max-width: 599px){
+  .cat-container {
+    position: relative;
+    left: -2vw;
+  }
+  .cat-card {
+    margin-bottom: 1vh;
+    margin-right: 6vw;
+  }
+
+  .cat-card img {
+    height: 100%;
+    width: 100%;
+  }
+
+  /* Paginator */
+
+  .paginator {
+    position: relative;
+    left: -12vw;
+    margin-left: 12%;
+    margin-top: 2vh;
+  }
+
+  .cat-categories {
+    margin-bottom: 5vh;
+  }
+
+
+}
+@media only screen and (max-width: 279px) {
+  .cat-card {
+    margin-bottom: 3vh;
+    margin-right: 15vw;
+  }
+
+  .cat-card img {
+    height: 100%;
+    width: 100%;
+  }
+
+  /* Paginator */
+
+  .paginator {
+    margin-left: -28%;
+    margin-top: 2vh;
+    width: 100%;
+  }
+
+  .cat-categories {
+    margin-bottom: 5vh;
+  }
+
+
+}
+@media only screen and (min-width: 599px) and (max-width: 767px){
+  .cat-card {
+    margin-bottom: 3vh;
+    margin-right: 0vw;
+  }
+
+  .cat-card img {
+    height: 100%;
+    width: 100%;
+    margin-left: 0;
+  }
+
+  /* Paginator */
+
+  .paginator {
+    margin-left: 12%;
+    margin-top: 2vh;
+  }
+
+  .cat-categories {
+    margin-bottom: 5vh;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .cat-card img {
+    height: 100%;
+    width: 100%;
+    margin-left: 0;
+  }
+
+  /* Paginator */
+
+  .paginator {
+    margin-left: 28%;
+    margin-top: 2vh;
+  }
+
+  .cat-categories .card {
+    background-color: grey !important;
+  }
+}
