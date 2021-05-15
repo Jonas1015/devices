@@ -5,12 +5,12 @@ from .models import *
 class addProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['name', 'description', 'category', 'price', 'discount_price', 'image', 'still_instock']
+        fields = ['name', 'description', 'category', 'price', 'discount_price', 'image1', 'image2', 'image3', 'still_instock']
 
 class updateProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['name', 'description', 'category', 'price', 'discount_price', 'image', 'still_instock']
+        fields = ['name', 'description', 'category', 'price', 'discount_price', 'image1', 'image2', 'image3', 'still_instock']
 
 
 class addCategoryForm(forms.ModelForm):

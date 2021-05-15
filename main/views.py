@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.db.models import F, Q
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 from .models import *
 from .forms import *
 
@@ -19,21 +21,33 @@ def home(request):
 
 
 def catalog(request):
-    products = Product.objects.all().order_by('category')
+    products_list = Product.objects.all().order_by('category')
     categories = Category.objects.all()
     form = messageForm(request.POST or None)
+
     if request.GET.get('product_q'):
-        products = Product.objects.filter(Q(name__icontains = request.GET.get('product_q'))).order_by('name')
-        if not products:
-            products = Product.objects.all().order_by('category')
+        products_list = Product.objects.filter(Q(name__icontains = request.GET.get('product_q'))).order_by('name')
+        if not products_list:
+            products_list = Product.objects.all().order_by('category')
             messages.warning(request, f'Query Not Found')
     elif request.GET.get('category_q'):
         try:
             category = get_object_or_404(Category, name=request.GET.get('category_q'))
-            products = Product.objects.filter(category = category.id).order_by('name')
+            products_list = Product.objects.filter(category = category.id).order_by('name')
         except:
             messages.warning(request, f'Query Not Found')
 
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(products_list, 6)
+    try:
+        products = paginator.page(page)
+    except PageNotAnInteger:
+        products = paginator.page(1)
+    except EmptyPage:
+        products = paginator.page(paginator.num_pages)
+
+    print(len(products.object_list))
 
     context = {
         'products': products,
@@ -112,7 +126,8 @@ def create_product(request):
         price = int(request.POST.get('price'))
         discount_price = int(request.POST.get('discount_price'))
         still_instock = request.POST.get('still_instock')
-        image = request.FILES['image']
+        image1 = request.FILES['image1']
+
 
         if still_instock == "on":
             still_instock = True
@@ -121,19 +136,38 @@ def create_product(request):
 
         category_instance = get_object_or_404(Category, name = category)
 
-        instance = Product (
-            name = name,
-            description = description,
-            category = category_instance,
-            price = price,
-            discount_price = discount_price,
-            still_instock = still_instock,
-            image = image
-        )
-        instance.save()
-        messages.success(request, f'Product Added Successfully!')
-        return redirect('products')
-    messages.warning(request, f'Error Occured!')
+        try:
+            image2 = request.FILES['image2']
+            image3 = request.FILES['image3']
+            instance = Product (
+                name = name,
+                description = description,
+                category = category_instance,
+                price = price,
+                discount_price = discount_price,
+                still_instock = still_instock,
+                image1 = image1,
+                image2 = image2,
+                image3 = image3,
+            )
+            instance.save()
+            messages.success(request, f'Product Added Successfully!')
+            return redirect('products')
+        except:
+            instance = Product (
+                name = name,
+                description = description,
+                category = category_instance,
+                price = price,
+                discount_price = discount_price,
+                still_instock = still_instock,
+                image1 = image1,
+            )
+            instance.save()
+
+            messages.success(request, f'Product Added Successfully!')
+            return redirect('products')
+    messages.warning(request, f'Error Occured while saving your data!')
     return redirect('products')
 
 def update_product(request, id):
@@ -162,14 +196,24 @@ def update_product(request, id):
         product.discount_price = discount_price
         product.still_instock = still_instock
         try:
-            image = request.FILES['image']
-            product.image = image
-            product.save()
+            image1 = request.FILES['image1']
+            product.image1 = image1
         except:
-            product.save()
+            pass
+        try:
+            image2 = request.FILES['image2']
+            product.image2 = image2
+        except:
+            pass
+        try:
+            image3 = request.FILES['image3']
+            product.image3 = image3
+        except:
+            pass
+        product.save()
         messages.success(request, f'Product Updated Successfully!')
         return redirect('products')
-    messages.warning(request, f'Error Occured!')
+    messages.warning(request, f'Error Occured while updating your data!')
     return redirect('products')
 
 def delete_product(request, id):

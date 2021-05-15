@@ -73,8 +73,16 @@
                         <input type="number" min="0" class="form-control" name="discount_price" value="0">
                       </div>
                       <div class="form-group">
-                        <label for="">Image*</label>
-                        <input type="file" accept="image/*" class="form-control" name="image" value="">
+                        <label for="">Image 1*</label>
+                        <input type="file" accept="image/*" class="form-control" name="image1" value="">
+                      </div>
+                      <div class="form-group">
+                        <label for="">Image 2</label>
+                        <input type="file" accept="image/*" class="form-control" name="image2" value="">
+                      </div>
+                      <div class="form-group">
+                        <label for="">Image 3</label>
+                        <input type="file" accept="image/*" class="form-control" name="image3" value="">
                       </div>
                       <div id="div_id_still_instock" class="form-check">
                         <input type="checkbox" name="still_instock" class="checkboxinput form-check-input" id="id_still_instock" checked>
@@ -119,7 +127,16 @@
                           <i class="fa fa-times text-danger"></i>
                         {% endif %}
                       </td>
-                      <td><a href="{{ product.image.url }}" target="_blank" class="text-info"><i class="fa fa-image fa-lg"></i> View</a></td>
+                      <td>
+                        <a href="{{ product.image1.url }}" target="_blank" class="text-info"><i class="fa fa-image fa-lg"></i> View Image 1</a>
+                        <br>
+                        {% if product.get_image_urls.0 %}
+                          <a href={{ product.get_image_urls.0 }} target="_blank" class="text-info"><i class="fa fa-image fa-lg"></i> View Image 2</a> <br>
+                        {% endif %}
+                        {% if product.get_image_urls.1 %}
+                          <a href="{{ product.get_image_urls.1 }}" target="_blank" class="text-info"><i class="fa fa-image fa-lg"></i> View Image 3</a>
+                        {% endif %}
+                      </td>
                       <td>
                         <a href="#" class="btn btn-outline-primary" data-toggle="modal" data-target="#updateProduct{{product.id}}"><i class="fa fa-edit"></i></a>
                         <a href="#" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteproduct{{product.id}}"><i class="fa fa-trash"></i></a>
@@ -165,11 +182,29 @@
                                 <input type="number" min="0" class="form-control" name="discount_price" value="{{ product.discount_price }}">
                               </div>
                               <div class="form-group">
-                                <p class="file-upload">Currently: <a href="{{ product.image.url }}" target="_blank" >Click to view</a><br>
+                                <p class="file-upload">Currently: <a href="{{ product.image1.url }}" target="_blank" >Click me view Image 1</a><br>
 
-                                <label for="image">Change Image*</label>
-                                <input type="file" accept="image/*" class="form-control" name="image">
+                                <label for="image">Change Image 1*</label>
+                                <input type="file" accept="image/*" class="form-control" name="image1">
                               </div>
+
+                              <div class="form-group">
+                                {% if product.get_image_urls.0 %}
+                                  <p class="file-upload">Currently: <a href="{{ product.get_image_urls.0 }}" target="_blank" >Click me view Image 2</a><br>
+                                {% endif %}
+                                  <label for="image">Change Image 2</label>
+                                  <input type="file" accept="image/*" class="form-control" name="image2">
+                              </div>
+
+                              <div class="form-group">
+                                {% if product.get_image_urls.1 %}
+                                  <p class="file-upload">Currently: <a href="{{ product.get_image_urls.1 }}" target="_blank" >Click me view Image 3</a><br>
+                                {% endif %}
+
+                                  <label for="image">Change Image 3</label>
+                                  <input type="file" accept="image/*" class="form-control" name="image3">
+                              </div>
+
                               <div id="div_id_still_instock" class="form-check">
                                 <input type="checkbox" name="still_instock" class="checkboxinput form-check-input" id="id_still_instock" {% if product.still_instock %} checked {% endif %}>
                                 <label for="id_still_instock" class="form-check-label">Available</label>

@@ -41,7 +41,9 @@ class Product(models.Model):
     still_instock = models.BooleanField(default=True)
     price = models.PositiveIntegerField()
     discount_price = models.PositiveIntegerField(default = 0)
-    image = models.ImageField(upload_to = 'product_pics')
+    image1 = models.ImageField(upload_to = 'product_pics')
+    image2 = models.ImageField(upload_to = 'product_pics', null=True, default = "default.png")
+    image3 = models.ImageField(upload_to = 'product_pics', null=True, default = "default.png")
 
     class Meta:
         verbose_name_plural = 'Products'
@@ -51,13 +53,43 @@ class Product(models.Model):
 
     def save(self, force_insert = False, force_update = False, using=None, **kwargs):
         super().save()
-        if self.image.path:
-            img = Image.open(self.image.path)
+        if self.image1.path:
+            img = Image.open(self.image1.path)
 
             if img.height > 600 or img.width > 600:
                 output_size = (600,600)
                 img.thumbnail(output_size)
-                img.save(self.image.path)
+                img.save(self.image1.path)
+        try:
+            if self.image2.path:
+                img = Image.open(self.image2.path)
+
+                if img.height > 600 or img.width > 600:
+                    output_size = (600,600)
+                    img.thumbnail(output_size)
+                    img.save(self.image2.path)
+        except:
+            pass
+        try:
+            if self.image3.path:
+                img = Image.open(self.image3.path)
+
+                if img.height > 600 or img.width > 600:
+                    output_size = (600,600)
+                    img.thumbnail(output_size)
+                    img.save(self.image3.path)
+        except:
+            pass
 
     def get_absolute_url(self):
         return reverse('product-detail', kwargs={'pk': self.pk})
+
+
+    def get_image_urls(self):
+        urls = []
+        try:
+            urls.append(self.image2.url)
+            urls.append(self.image3.url)
+        except:
+            pass
+        return urls

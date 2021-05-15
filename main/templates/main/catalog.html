@@ -62,19 +62,27 @@
         </div>
       </div>
       <div class="row">
+        <div class="col-md-3 col-xl-3 col-lg-3 col-sm-3">
+          <p>Products: {{ products.object_list|length }}</p> <br>
+          <p>Page: {{ products.number }}</p>
+        </div>
+      </div>
+      <div class="row">
         {% for product in products %}
           <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 mt-3">
             <div class="card cat-card">
-              <img src="{{ product.image.url }}" alt="{{ product.name }}">
+              <img src="{{ product.image1.url }}" alt="{{ product.name }}">
               <div class="card-header">
                 <center>
                   <h3>{{ product.name }} <br>
                     {% if product.discount_price != 0 %}
-                    <span class="discount-price"><strike>TZS {{ product.price|floatformat:2|intcomma}}/= </strike></span>
-                    <br>
-                    <span class="price">TZS {{ product.discount_price|floatformat:2|intcomma}}/=</span>
+                      <span class="discount-price"><strike>TZS {{ product.price|floatformat:2|intcomma}}/= </strike></span>
+                      <br>
+                      <span class="price">TZS {{ product.discount_price|floatformat:2|intcomma}}/=</span>
                     {% else %}
-                    <span class="price">TZS {{ product.price|floatformat:2|intcomma}}/=</span>
+                      <span class="discount-price"><strike>TZS 0.00/= </strike></span>
+                      <br>
+                      <span class="price">TZS {{ product.price|floatformat:2|intcomma}}/=</span>
                     {% endif %}
                   </h3>
                 </center>
@@ -84,7 +92,7 @@
                 <a href="#" class="btn button btn-block" data-toggle="modal" data-target="#orderNow{{product.id}}">Order Now</a>
               </div>
 
-              <!-- ORDER MODAL -->
+              <!-- ORDER/VIEW MODAL -->
               <div class="modal fade" id="orderNow{{product.id}}" tabindex="-1" aria-labelledby="orderNowLabel" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
@@ -97,14 +105,20 @@
                     <div class="modal-body">
                       <div class="product data">
                         <div class="cat-card mb-4">
-                          <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                          <img src="{{ product.image1.url }}" alt="{{ product.name }}">
+                          <div class="more-images">
+                            <div class="p-2 m-3">
+                              <a href="{{ product.get_image_urls.0 }}" target="_blank" class="btn btn-outline-success p-2">Click me for image 2</a>
+                              <a href="{{ product.get_image_urls.1 }}" target="_blank" class="btn btn-outline-success p-2 w3-right">Click me for image 3</a>
+                            </div>
+                          </div>
                           <div class="card-header">
                             <center>
                               <h3>{{ product.name }} <br>
                                 {% if product.discount_price != 0 %}
-                                <span class="price">TZS {{ product.discount_price|floatformat:2|intcomma}}/=</span>
+                                  <span class="price">TZS {{ product.discount_price|floatformat:2|intcomma}}/=</span>
                                 {% else %}
-                                <span class="price">TZS {{ product.price|floatformat:2|intcomma}}/=</span>
+                                  <span class="price">TZS {{ product.price|floatformat:2|intcomma}}/=</span>
                                 {% endif %}
                               </h3>
                             </center>
@@ -122,6 +136,7 @@
               </div>
             </div>
 
+            <!-- FINISHING MAKING AN ORDER MODAL -->
             <div class="modal fade" id="order{{product.id}}" tabindex="-1" aria-labelledby="orderLabel" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
@@ -136,7 +151,7 @@
                         <form class="" action="{% url 'order' %}" method="post">
                           {% csrf_token %}
                           {{ form |crispy }}
-                          <button type="submit" class="btn button btn-block">Order</button> 
+                          <button type="submit" class="btn button btn-block">Order</button>
                         </form>
                       </div>
                       <h5>OR</h5>
@@ -158,14 +173,38 @@
         <div class="row mb-5">
           <div class="col-xs-12 col-lg-12 col-md-12 col-sm-12">
             <div aria-label="Page navigation example" class="paginator">
+              {% if products.has_other_pages %}
               <ul class="pagination">
+                {% if products.has_previous %}
+                  <li class="page-item"><a href="?page={{ products.previous_page_number }}" class="page-link">Previous</a></li>
+                {% else %}
+                  <li class="disabled page-item"><a href="#" class="page-link">Previous</a></li>
+                {% endif %}
+
+                {% for i in products.paginator.page_range %}
+                  {% if products.number == i %}
+                    <li class="active page-item"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+                  {% else %}
+                    <li class="page-item"><a href="?page={{ i }}" class="page-link">{{ i }}</a></li>
+                  {% endif %}
+                {% endfor %}
+
+                {% if products.has_next %}
+                  <li class="page-item"><a href="?page={{ products.next_page_number }}" class="page-link">Next</a></li>
+                {% else %}
+                  <li class="disabled page-item"><a href="#" class="page-link">Next</a></li>
+                {% endif %}
+              </ul>
+
+              <!-- <ul class="pagination">
                 <li class="page-item"><a href="#" class="page-link">Previous</a></li>
                 <li class="page-item"><a href="#" class="page-link">1</a></li>
                 <li class="page-item"><a href="#" class="page-link">2</a></li>
                 <li class="page-item"><a href="#" class="page-link">3</a></li>
                 <li class="page-item"><a href="#" class="page-link">Next</a></li>
-              </ul>
+              </ul> -->
             </div>
+            {% endif %}
           </div>
         </div>
       </div>
