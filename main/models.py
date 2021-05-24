@@ -3,7 +3,7 @@ from django.core.validators import RegexValidator
 from uuid import uuid4
 from PIL import Image
 from django.urls import reverse
-import os
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 class Message(models.Model):
@@ -36,7 +36,7 @@ class Category(models.Model):
 
 class Product(models.Model):
     name = models.CharField(max_length = 100)
-    description = models.CharField(max_length = 500)
+    description = RichTextField(blank = True, null = True)
     category = models.ForeignKey(Category, on_delete = models.SET_NULL, null = True)
     still_instock = models.BooleanField(default=True)
     price = models.PositiveIntegerField()

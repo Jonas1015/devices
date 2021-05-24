@@ -46,14 +46,18 @@
                 <div class="modal-body">
                   <form class="col-xs-12 col-lg-12 col-md-12 col-sm-12" action="{% url 'create-product' %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
-                      <!-- {{ add_product_form | crispy}} -->
+                      <!-- {{ add_product_form.media}}
+                      {{ add_product_form | crispy}} -->
                       <div class="form-group">
                         <label for="">Name*</label>
                         <input type="text" class="form-control" name="name" value="" required>
                       </div>
                       <div class="form-group">
                         <label for="">Description*</label>
-                        <input type="text" class="form-control" name="description" value="" required>
+                        <textarea name="description" class="form-control" style="max-height: 300px; min-height: 200px;"  required>
+
+                        </textarea>
+                        <!-- <input type="text" class="form-control" name="description" value="" required> -->
                       </div>
                       <div class="form-group">
                         <label for="category">Category*</label>

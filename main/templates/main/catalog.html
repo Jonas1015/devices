@@ -87,7 +87,7 @@
                   </h3>
                 </center>
                 <br>
-                <p>{{ product.description }}.</p>
+                <left class="text-center"><p>{{ product.description|linebreaks }}.</p></left>
                 <br>
                 <a href="#" class="btn button btn-block" data-toggle="modal" data-target="#orderNow{{product.id}}">View More</a>
               </div>
@@ -125,7 +125,7 @@
                               </h3>
                             </center>
                             <br>
-                            <p>{{ product.description }}.</p>
+                            <center><p>{{ product.description|linebreaks }}.</p></center>
                           </div>
                       </div>
                       <div class="w3-right">
