@@ -35,43 +35,43 @@
   <div class="row">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <div class="row search">
-        <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 col-xs-12 c-search">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 c-search">
           <form class="d-flex" action="{% url 'catalog' %}" method="get">
             {% csrf_token %}
-            <input type="text" list="products_list" placeholder="Search Product" name="product_q" class="form-control col-8" required>
+            <input type="text" list="products_list" placeholder="Search Product" name="product_q" class="form-control col-6" required>
             <datalist id="products_list">
               {% for product in products %}
                 <option value="{{ product.name }}">
               {% endfor %}
             </datalist>
-            <button type="submit" class="btn btn-sm ml-3 search-button col-4" name="button">Search Product</button>
+            <button type="submit" class="btn ml-3 search-button col-6" name="button">Search Product</button>
           </form>
         </div>
-        <div class="col-2 w3-small-hide"></div>
-        <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 col-xs-12 p-search">
+
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 p-search">
           <form class="d-flex" action="{% url 'catalog' %}" method="get">
             {% csrf_token %}
-            <input type="text" list="categories_list" placeholder="Search Category" name="category_q" class="form-control col-8" required>
+            <input type="text" list="categories_list" placeholder="Search Category" name="category_q" class="form-control col-6" required>
             <datalist id="categories_list">
               {% for category in categories %}
                 <option value="{{ category.name }}">
               {% endfor %}
             </datalist>
-            <button type="submit" class="btn btn-sm ml-3 search-button col-4" name="button">Search Category</button>
+            <button type="submit" class="btn ml-3 search-button col-6" name="button">Search Category</button>
           </form>
         </div>
       </div>
       <div class="row">
         <div class="col-md-3 col-xl-3 col-lg-3 col-sm-3">
           <p>Products: {{ products.object_list|length }}</p> <br>
-          <p>Page: {{ products.number }}</p>
+          <p>Page {{ products.number }} of {{ all_pages }}</p>
         </div>
       </div>
       <div class="row">
         {% for product in products %}
           <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 mt-3">
             <div class="card cat-card">
-              <img src="{{ product.image1.url }}" alt="{{ product.name }}">
+              <img src="{{ product.image1.url }}" alt="No image for {{ product.name }}">
               <div class="card-header">
                 <center>
                   <h3>{{ product.name }} <br>
@@ -89,10 +89,10 @@
                 <br>
                 <p>{{ product.description }}.</p>
                 <br>
-                <a href="#" class="btn button btn-block" data-toggle="modal" data-target="#orderNow{{product.id}}">Order Now</a>
+                <a href="#" class="btn button btn-block" data-toggle="modal" data-target="#orderNow{{product.id}}">View More</a>
               </div>
 
-              <!-- ORDER/VIEW MODAL -->
+              <!-- VIEW MODAL -->
               <div class="modal fade" id="orderNow{{product.id}}" tabindex="-1" aria-labelledby="orderNowLabel" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
@@ -106,10 +106,12 @@
                       <div class="product data">
                         <div class="cat-card mb-4">
                           <img src="{{ product.image1.url }}" alt="{{ product.name }}">
-                          <div class="more-images">
-                            <div class="p-2 m-3">
-                              <a href="{{ product.get_image_urls.0 }}" target="_blank" class="btn btn-outline-success p-2">Click me for image 2</a>
-                              <a href="{{ product.get_image_urls.1 }}" target="_blank" class="btn btn-outline-success p-2 w3-right">Click me for image 3</a>
+                          <div class="row p-2 m-3">
+                            <div class="col-md-6 col-sm-12 col-lg-6 col-xs-12 col-xl-6">
+                              <a href="{{ product.get_image_urls.0 }}" target="_blank" class="btn btn-outline-success">Click me for image 2</a>
+                            </div>
+                            <div class="col-md-6 col-sm-12 col-lg-6 col-xs-12 col-xl-6">
+                              <a href="{{ product.get_image_urls.1 }}" target="_blank" class="btn btn-outline-success">Click me for image 3</a>
                             </div>
                           </div>
                           <div class="card-header">
@@ -155,9 +157,9 @@
                         </form>
                       </div>
                       <h5>OR</h5>
-                      <a href="tel:+255767835587" class="btn btn-outline-info" data-dismiss="modal"><i class="fa fa-phone"></i></a>
-                      <a href="SMS:+25767835587&body=I'm Interested with {{ product.name }}!! Contact me please!" class="btn btn-outline-primary" data-dismiss="modal"><i class="fa fa-comment-alt"></i></a>
-                      <a href="#" class="btn btn-outline-success" data-dismiss="modal"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
+                      <a href="tel:+255767835587/" class="btn btn-outline-info" data-dismiss="modal"><i class="fa fa-phone"></i></a>
+                      <a href="sms://+255767835587?body=I%20am%20interested%20in%20{{ product.name }}!!%20Contact%20me%20please!" class="btn btn-outline-primary" data-dismiss="modal"><i class="fa fa-comment-alt"></i></a>
+                      <a href="https://wa.me/+255767835587?text=I%20interested%20in%20this%20{{product.name}}%20from%20your%20store.%20Please%20contact%20me." class="btn btn-outline-success" data-dismiss="modal"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
 
                     <a href="#" class="btn btn-outline-danger w3-right" data-dismiss="modal">Cancel</a>
                   </div>

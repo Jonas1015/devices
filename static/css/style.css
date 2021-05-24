@@ -126,11 +126,11 @@
      padding: 0;
 }
  .form-control:focus {
-     border-color: #ffffff !important;
-     box-shadow: 0 0 0 .2rem rgba(255, 255, 255, .25);
+    border-color: ##035766 !important;
+    box-shadow: 0 0 0 .2rem rgba(255, 255, 255, .25);
 }
  .navbar-form input {
-     border: none !important;
+     /* border: none !important; */
 }
  .badge {
      font-weight: 500;

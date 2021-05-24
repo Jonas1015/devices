@@ -72,15 +72,20 @@ body {
 
 /* CATALOG RESPONSIVENESS */
 
-
+/* ----------------- PHONE ------------------------------------- */
 @media only screen and (min-width: 280px) and (max-width: 599px){
   .cat-container {
     position: relative;
-    left: -2vw;
+    left: 1vw;
   }
+
+  .p-search {
+    margin-top: 10px;
+  }
+
   .cat-card {
     margin-bottom: 1vh;
-    margin-right: 6vw;
+    margin-right: 2vw;
   }
 
   .cat-card img {
@@ -92,7 +97,6 @@ body {
 
   .paginator {
     position: relative;
-    left: -12vw;
     margin-left: 12%;
     margin-top: 2vh;
   }
@@ -100,13 +104,15 @@ body {
   .cat-categories {
     margin-bottom: 5vh;
   }
-
-
 }
+
+
+/* -------------------- BELOW PHONES WIDTH -------------------------------- */
 @media only screen and (max-width: 279px) {
+
   .cat-card {
     margin-bottom: 3vh;
-    margin-right: 15vw;
+    margin-right: 5vw;
   }
 
   .cat-card img {
@@ -129,6 +135,7 @@ body {
 
 }
 @media only screen and (min-width: 599px) and (max-width: 767px){
+
   .cat-card {
     margin-bottom: 3vh;
     margin-right: 0vw;
@@ -139,6 +146,8 @@ body {
     width: 100%;
     margin-left: 0;
   }
+
+
 
   /* Paginator */
 

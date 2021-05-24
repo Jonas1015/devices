@@ -47,9 +47,11 @@ def catalog(request):
     except EmptyPage:
         products = paginator.page(paginator.num_pages)
 
+
     print(len(products.object_list))
 
     context = {
+        'all_pages': paginator.num_pages,
         'products': products,
         'categories': categories,
         'form': form,
