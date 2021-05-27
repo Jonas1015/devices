@@ -5,7 +5,7 @@ urlpatterns = [
     path('', home, name = 'home'),
     path('catalog/', catalog, name = 'catalog'),
     path('message/', message, name = 'message'),
-    path('order/', order, name = 'order'),
+    path('order/<int:id>/', order, name = 'order'),
     path('make/order/<int:id>/', make_order, name = 'make-order'),
     # path('categories/', CategoryListView.as_view(), name = 'categories'),
 

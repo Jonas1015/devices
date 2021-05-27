@@ -235,15 +235,16 @@ def make_order(request, id):
     return render(request, template_name, context)
 
 
-def order(request):
+def order(request, id):
     if request.method == 'POST':
+        product = get_object_or_404(Product, id = id)
         form  = messageForm(request.POST or None)
         if form.is_valid():
             form.save()
             messages.success(request, f'Thank you for placing your order! We\'ll contact you soon.')
             return redirect('catalog')
     messages.warning(request, f'Error occured while placing an order. Please try again.')
-    return redirect('catalog')
+    return redirect('catalog', product.id)
 
 
 def message(request):
