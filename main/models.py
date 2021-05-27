@@ -56,16 +56,16 @@ class Product(models.Model):
         if self.image1.path:
             img = Image.open(self.image1.path)
 
-            if img.height > 600 or img.width > 600:
-                output_size = (600,600)
+            if img.height > 400 or img.width > 400:
+                output_size = (400,400)
                 img.thumbnail(output_size)
                 img.save(self.image1.path)
         try:
             if self.image2.path:
                 img = Image.open(self.image2.path)
 
-                if img.height > 600 or img.width > 600:
-                    output_size = (600,600)
+                if img.height > 400 or img.width > 400:
+                    output_size = (400,400)
                     img.thumbnail(output_size)
                     img.save(self.image2.path)
         except:
@@ -74,8 +74,8 @@ class Product(models.Model):
             if self.image3.path:
                 img = Image.open(self.image3.path)
 
-                if img.height > 600 or img.width > 600:
-                    output_size = (600,600)
+                if img.height > 400 or img.width > 400:
+                    output_size = (400,400)
                     img.thumbnail(output_size)
                     img.save(self.image3.path)
         except:

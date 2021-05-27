@@ -1,0 +1,73 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}Catalog{% endblock %}
+{% block content %}
+{% load humanize %}
+{% load crispy_forms_tags %}
+<!-- Css links -->
+<link rel="stylesheet" href="{% static 'admin/css/catalog.css' %}">
+<!-- End of css -->
+
+<div class="cat-container container mb-5">
+  <div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+      <div class="titlepage">
+        <h3>MAKE AN  <strong class="llow">ORDER</strong></h3>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 col-xl-12 col-xs-12 col-lg-12 col-sm-12">
+      <div class="message w3-center">
+          {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-{{ message.tags }} alert-dismissible fade show w3-animate-top" role="alert">
+                {{message}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            {% endfor %}
+          {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="row mb-4">
+    <div class="col-md-10 offset-md-1">
+      <div class="content">
+        <div class="row">
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+            <div class="w3-card pt-4 pb-4 pl-4 pr-4">
+              <form class="" action="{% url 'order' %}" method="post">
+                {% csrf_token %}
+                {{ form |crispy }}
+                <button type="submit" class="btn button btn-block">Order</button>
+              </form>
+            </div>
+          </div>
+
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+            <div class="w3-medium-hide w3-large-hide">
+              <h3 class="text-center">OR</h3>
+            </div>
+            <div class="text-center mt-4">
+              <a href="tel://+255767835587/" class="btn btn-outline-info" data-dismiss="modal"><i class="fa fa-phone fa-lg"></i> Phone</a>
+              <a href="sms://+255767835587?body=I%20am%20interested%20in%20{{ product.name }}!!%20Contact%20me%20please!" class="btn btn-outline-primary ml-3 mr-3" data-dismiss="modal"><i class="fa fa-lg fa-comment-alt"></i> SMS</a>
+              <a href="https://wa.me/+255767835587?text=I%20interested%20in%20this%20{{product.name}}%20from%20your%20store.%20Please%20contact%20me." class="btn btn-outline-success" data-dismiss="modal"><i class="fab fa-lg fa-whatsapp" aria-hidden="true"></i> WhatsApp</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- End of Catalogue -->
+
+{% endblock %}
+
+
+{% block js %}
+
+{% endblock%}

@@ -86,8 +86,8 @@
                     {% endif %}
                   </h3>
                 </center>
-                <br>
-                <left class="text-center"><p>{{ product.description|linebreaks }}.</p></left>
+                <!-- <br> -->
+                <!-- <left class="text-center"><p>{{ product.description|linebreaks|truncatechars:10 }}.</p></left> -->
                 <br>
                 <a href="#" class="btn button btn-block" data-toggle="modal" data-target="#orderNow{{product.id}}">View More</a>
               </div>
@@ -130,7 +130,8 @@
                       </div>
                       <div class="w3-right">
                         <a href="#" class="btn btn-outline-danger" data-dismiss="modal">Cancel</a>
-                        <a href="#" class="btn button" data-toggle="modal" data-target="#order{{product.id}}">Order</a>
+                        <a href="{% url 'make-order' product.id %}" class="btn button">Order</a>
+                        <!-- <a href="{% url 'make-order' product.id %}" class="btn button" data-toggle="modal" data-target="#order{{product.id}}">Order</a> -->
                       </div>
                     </div>
                   </div>
@@ -157,7 +158,7 @@
                         </form>
                       </div>
                       <h5>OR</h5>
-                      <a href="tel:+255767835587/" class="btn btn-outline-info" data-dismiss="modal"><i class="fa fa-phone"></i></a>
+                      <a href="tel://+255767835587/" class="btn btn-outline-info" data-dismiss="modal"><i class="fa fa-phone"></i></a>
                       <a href="sms://+255767835587?body=I%20am%20interested%20in%20{{ product.name }}!!%20Contact%20me%20please!" class="btn btn-outline-primary" data-dismiss="modal"><i class="fa fa-comment-alt"></i></a>
                       <a href="https://wa.me/+255767835587?text=I%20interested%20in%20this%20{{product.name}}%20from%20your%20store.%20Please%20contact%20me." class="btn btn-outline-success" data-dismiss="modal"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
 
@@ -167,6 +168,7 @@
               </div>
             </div>
           </div>
+
             <!-- End of the Modal -->
           </div>
         {% endfor %}

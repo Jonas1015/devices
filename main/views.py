@@ -224,6 +224,16 @@ def delete_product(request, id):
     messages.success(request, f'Product Deleted Successfully!')
     return redirect('products')
 
+def make_order(request, id):
+    form = messageForm(request.POST or None)
+    product = get_object_or_404(Product, id = id)
+    template_name = 'main/order.html'
+    context = {
+        'form': form,
+        'product': product,
+    }
+    return render(request, template_name, context)
+
 
 def order(request):
     if request.method == 'POST':
