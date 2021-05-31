@@ -2,6 +2,9 @@ body {
   --theme: #035766;
 }
 
+.hoverable-card .cat-card: hover {
+  border: 6px solid var(--theme) !important;
+}
 
 .titlepage {
    text-align: center;

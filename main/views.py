@@ -59,13 +59,14 @@ def catalog(request):
     template_name = 'main/catalog.html'
     return render(request, template_name, context)
 
+    # CATEGORIES
+@login_required
 def categories(request):
     context = {}
     template_name = 'main/categories.html'
     return render(request, template_name, context)
 
-# CATEGORIES
-
+@login_required
 def categoriesList(request):
     categories = Category.objects.all()
     add_category_form = addCategoryForm(request.POST or None)
@@ -76,7 +77,7 @@ def categoriesList(request):
         'add_category_form': add_category_form,
     }
     return render(request, template_name, context)
-
+@login_required
 def create_category(request):
     if request.method == "POST":
         form = addCategoryForm(request.POST or None)
@@ -88,7 +89,7 @@ def create_category(request):
             messages.success(request, f'Error occured!')
             return redirect('categories')
 
-
+@login_required
 def update_category(request, id):
     if request.method == "POST":
         category_name = request.POST.get('name')
@@ -98,7 +99,7 @@ def update_category(request, id):
         messages.success(request, f'Category Updated Successfully!')
         return redirect('categories')
 
-
+@login_required
 def delete_category(request, id):
     category = get_object_or_404(Category, id = id)
     category.delete()
@@ -106,7 +107,7 @@ def delete_category(request, id):
     return redirect('categories')
 
 # PRODUCTS
-
+@login_required
 def productsList(request):
     products = Product.objects.all()
     categories = Category.objects.all()
@@ -120,6 +121,7 @@ def productsList(request):
     }
     return render(request, template_name, context)
 
+@login_required
 def create_product(request):
     if request.method == "POST" and request.FILES:
         name = request.POST.get('name')
@@ -172,6 +174,7 @@ def create_product(request):
     messages.warning(request, f'Error Occured while saving your data!')
     return redirect('products')
 
+@login_required
 def update_product(request, id):
     if request.method == "POST":
         name = request.POST.get('name')
@@ -218,6 +221,7 @@ def update_product(request, id):
     messages.warning(request, f'Error Occured while updating your data!')
     return redirect('products')
 
+@login_required
 def delete_product(request, id):
     product = get_object_or_404(Product, id = id)
     product.delete()
@@ -244,7 +248,7 @@ def order(request, id):
             messages.success(request, f'Thank you for placing your order! We\'ll contact you soon.')
             return redirect('catalog')
     messages.warning(request, f'Error occured while placing an order. Please try again.')
-    return redirect('catalog', product.id)
+    return redirect('make-order', product.id)
 
 
 def message(request):

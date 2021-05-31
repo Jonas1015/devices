@@ -48,7 +48,7 @@
   <!-- header -->
   <header>
     <!-- header inner -->
-    <div class="header-top">
+    <div class="header-top fixed-top">
       <div class="header">
         <div class="container-fluid">
           <div class="row">
@@ -61,6 +61,7 @@
                 </div>
               </div>
             </div>
+
             <div class="col-xl-10 col-lg-8 col-md-8 col-sm-9">
 
                <div class="menu-area">
@@ -68,9 +69,19 @@
                   <nav class="main-menu ">
                     <ul class="menu-area-main">
                       <li> <a href="{% url 'home' %}">Home</a> </li>
+                      {% if request.user.is_authenticated %}
                       <li> <a href="{% url 'categories' %}">Categories</a> </li>
                       <li> <a href="{% url 'products' %}">Products</a> </li>
                       <li> <a href="{% url 'catalog' %}">Catalog</a> </li>
+                      {% else %}
+                      <li> <a href="{% url 'catalog' %}">Products</a> </li>
+                      {% endif %}
+                      {% if request.user.is_authenticated %}
+                      <li> <a href="{% url 'change-password' %}">Change Password</a> </li>
+                      <li> <a href="{% url 'logout' %}">Logout</a> </li>
+                      {% else %}
+                      <li> <a href="{% url 'login' %}">Login</a> </li>
+                      {% endif %}
                       <li> <a href="#order"></a> </li>
 
                      <!-- <li> <a href="#"><img src="icon/icon_b.png" alt="#" /></a></li> -->
@@ -85,8 +96,10 @@
      </div>
      {% block content %}
      {% endblock %}
+     <div class="mb-5 pb-5">
 
-     <div class="fixed-bottom mt-5">
+     </div>
+     <div class="fixed-bottom">
        <footer>
          <div class="copyright">
            <div class="container">

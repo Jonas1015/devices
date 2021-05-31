@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="{% static 'admin/css/catalog.css' %}">
 <!-- End of css -->
 
-<div class="cat-container container mb-5">
+<div class="cat-container container mt-5 pt-5">
   <div class="row">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
       <div class="titlepage">
@@ -16,6 +16,7 @@
       </div>
     </div>
   </div>
+  <hr style="margin-top: -20px;">
   <div class="row">
     <div class="col-md-12 col-xl-12 col-xs-12 col-lg-12 col-sm-12">
       <div class="message w3-center">
@@ -48,7 +49,7 @@
           </div>
 
           <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-            <div class="w3-card pt-4 pb-4 pl-4 pr-4">
+            <div class="w3-card p-5 mb-5">
               <form class="" action="{% url 'order' product.id %}" method="post">
                 {% csrf_token %}
                 {{ form |crispy }}
