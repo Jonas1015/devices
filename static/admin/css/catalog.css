@@ -2,9 +2,7 @@ body {
   --theme: #035766;
 }
 
-.hoverable-card .cat-card: hover {
-  border: 6px solid var(--theme) !important;
-}
+
 
 .titlepage {
    text-align: center;
@@ -42,12 +40,39 @@ body {
 .cat-card .card-header .discount-price {
   font-size: 0.6em;
 }
-.cat-card img {
-  height: 100%;
-  width: 100%;
-  margin-left: 0vw;
+
+.image {
+
 }
 
+.image img {
+  height: 100%;
+  width: 100%;
+  display: block;
+}
+
+.badge {
+  background-color: red;
+  position: absolute;
+  right: 0;
+  top: 0;
+  left: 78.4%;
+  bottom: 0;
+  opacity: 1;
+  padding: 0;
+  height: 10.5%;
+  width: 22%;
+  border-radius: 0;
+}
+
+.badge h4 {
+  color: #fff;
+  /* font-size: 1em; */
+}
+
+.badge h4 span{
+  font-size: 0.9rem;
+}
 /* Separate */
 
 .separate {
@@ -73,6 +98,8 @@ body {
   color: #ffffff;
 }
 
+
+
 /* CATALOG RESPONSIVENESS */
 
 /* ----------------- PHONE ------------------------------------- */
@@ -94,6 +121,30 @@ body {
   .cat-card img {
     height: 100%;
     width: 100%;
+    display: block;
+  }
+
+  .badge {
+    background-color: red;
+    position: absolute;
+    right: 0;
+    top: 0;
+    left: 78.4%;
+    bottom: 0;
+    opacity: 1;
+    padding: 0;
+    height: 10.5%;
+    width: 22%;
+    border-radius: 0;
+  }
+
+  .badge h4 {
+    color: #fff;
+    font-size: 20px;
+  }
+
+  .badge h4 span{
+    font-size: 10px;
   }
 
   /* Paginator */
@@ -135,6 +186,28 @@ body {
     margin-bottom: 5vh;
   }
 
+  .badge {
+    background-color: red;
+    position: absolute;
+    right: 0;
+    top: 0;
+    left: 78.4%;
+    bottom: 0;
+    opacity: 1;
+    padding: 0;
+    height: 10.5%;
+    width: 22%;
+    border-radius: 0;
+  }
+
+  .badge h4 {
+    color: #fff;
+    font-size: 20px;
+  }
+
+  .badge h4 span{
+    font-size: 10px;
+  }
 
 }
 @media only screen and (min-width: 599px) and (max-width: 767px){
@@ -150,7 +223,28 @@ body {
     margin-left: 0;
   }
 
+  .badge {
+    background-color: red;
+    position: absolute;
+    right: 0;
+    top: 0;
+    left: 72%;
+    bottom: 0;
+    opacity: 1;
+    padding: 0;
+    height: 10.5%;
+    width: 28%;
+    border-radius: 0;
+  }
 
+  .badge h4 {
+    color: #fff;
+    font-size: 20px;
+  }
+
+  .badge h4 span{
+    font-size: 12px;
+  }
 
   /* Paginator */
 

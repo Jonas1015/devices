@@ -70,27 +70,39 @@
       <div class="row">
         {% for product in products %}
           <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 mt-3">
-            <a href="#" data-toggle="modal" class="hoverable-card" data-target="#orderNow{{product.id}}">
+            <!-- <a href="#" data-toggle="modal" class="hoverable-card" data-target="#orderNow{{product.id}}"> -->
             <div class="card cat-card">
-              <img src="{{ product.image1.url }}" alt="No image for {{ product.name }}">
+                <div class="image">
+                  <img src="{{ product.image1.url }}" alt="No image for {{ product.name }}">
+                    {{ product.filename }}
+                  <div class="badge">
+                    {% if product.percentage_discount >= 100 %}
+                    <h4 class="percentage-discount">0% <span>OFF</span> </h4>
+                    {% else %}
+                    <h4 class="percentage-discount">{{ product.percentage_discount|floatformat:0 }}% <span>OFF</span></h4>
+                    {% endif %}
+                  </div>
+                </div>
               <div class="card-header">
                 <center>
-                  <h3>{{ product.name }} <br>
+                  <h3><strong> {{ product.name }} </strong> </h3>
+                  <h3>
                     {% if product.discount_price != 0 %}
-                      <span class="discount-price"><strike>TZS {{ product.price|floatformat:2|intcomma}}/= </strike></span>
-                      <br>
                       <span class="price">TZS {{ product.discount_price|floatformat:2|intcomma}}/=</span>
-                    {% else %}
-                      <span class="discount-price"><strike>TZS 0.00/= </strike></span>
                       <br>
+                      <span class="discount-price"><strike>TZS {{ product.price|floatformat:2|intcomma}}/= </strike></span>
+                    {% else %}
                       <span class="price">TZS {{ product.price|floatformat:2|intcomma}}/=</span>
+                      <br>
+                      <span class="discount-price"><strike>TZS 0.00/= </strike></span>
                     {% endif %}
-                  </h3>
+                    <br>
+                    </h3>
                 </center>
                 <!-- <br> -->
                 <!-- <left class="text-center"><p>{{ product.description|linebreaks|truncatechars:10 }}.</p></left> -->
                 <br>
-                <!-- <a href="#" class="btn button btn-block" data-toggle="modal" data-target="#orderNow{{product.id}}">View More</a> -->
+                <a href="#" class="btn button btn-block" data-toggle="modal" data-target="#orderNow{{product.id}}">View More</a>
               </div>
 
               <!-- VIEW MODAL -->
@@ -168,7 +180,7 @@
                 </div>
               </div>
             </div>
-          </a>
+          <!-- </a> -->
           </div>
 
             <!-- End of the Modal -->

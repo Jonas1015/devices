@@ -8,7 +8,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .models import *
 from .forms import *
-
+import os
 
 # Create your views here.
 def home(request):
@@ -22,6 +22,10 @@ def home(request):
 
 def catalog(request):
     products_list = Product.objects.all().order_by('category')
+
+    for product in products_list:
+        print(os.path.basename(product.image1.name))
+
     categories = Category.objects.all()
     form = messageForm(request.POST or None)
 
@@ -37,6 +41,8 @@ def catalog(request):
         except:
             messages.warning(request, f'Query Not Found')
 
+
+
     page = request.GET.get('page', 1)
 
     paginator = Paginator(products_list, 6)
@@ -49,6 +55,7 @@ def catalog(request):
 
 
     print(len(products.object_list))
+
 
     context = {
         'all_pages': paginator.num_pages,

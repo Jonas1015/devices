@@ -4,6 +4,7 @@ from uuid import uuid4
 from PIL import Image
 from django.urls import reverse
 from ckeditor.fields import RichTextField
+import os
 
 # Create your models here.
 class Message(models.Model):
@@ -50,6 +51,12 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+    def filename(self):
+        return (os.path.basename(self.image1.name))
+
+    def percentage_discount(self):
+        return ((self.price - self.discount_price)/self.price)*100
 
     def save(self, force_insert = False, force_update = False, using=None, **kwargs):
         super().save()
