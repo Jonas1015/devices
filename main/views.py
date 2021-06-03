@@ -1,10 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
+from django.core.mail import EmailMessage
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.db.models import F, Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from accounts.models import CustomUser
+
 
 from .models import *
 from .forms import *
@@ -251,7 +254,27 @@ def order(request, id):
         product = get_object_or_404(Product, id = id)
         form  = messageForm(request.POST or None)
         if form.is_valid():
-            form.save()
+            order = form.save(commit = False)
+            order.product = product
+            order.product_name = product.name
+            order.save()
+
+            customer_name = form.cleaned_data['name']
+            header = customer_name + " - Is making an Order"
+
+            message_from_customer = form.cleaned_data['message']
+            email_from_customer = form.cleaned_data['email']
+            phone_number_from_customer = form.cleaned_data['phone_number']
+
+            users = CustomUser.objects.all()
+
+            mail_list = [user.email for user in users]
+            print(mail_list)
+
+            message = message_from_customer + "\n" + "DETAILS OF THE PRODUCT"+ "\n" + "Product ordered: " + product.name + " \n" + "Product Description: "+ product.description + "\n" + "Sender's Email: " + email_from_customer + "\n" + "Sender's Phone number: " + phone_number_from_customer
+            mail = EmailMessage(header, message, to=mail_list)
+            mail.send(fail_silently = False)
+
             messages.success(request, f'Thank you for placing your order! We\'ll contact you soon.')
             return redirect('catalog')
     messages.warning(request, f'Error occured while placing an order. Please try again.')
@@ -265,7 +288,19 @@ def message(request):
             message = form.save(commit = False)
             message.is_order = False
             message.save()
-            print("Sanity Check ", message.is_order)
+
+
+            customer_name = form.cleaned_data['name']
+            header = customer_name + " - Is messaging"
+
+            message_from_customer = form.cleaned_data['message']
+            email_from_customer = form.cleaned_data['email']
+            phone_number_from_customer = form.cleaned_data['phone_number']
+
+            message = message_from_customer + "\n" + "Sender's Email: "+ email_from_customer + "\n" + "Sender's Phone number: " + phone_number_from_customer
+            mail = EmailMessage(header, message, to=["jonas@mail.test"])
+            mail.send(fail_silently = False)
+
             messages.success(request, f'Thank you. Message has been delivered.')
             return redirect('home')
         else:

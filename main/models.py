@@ -6,24 +6,6 @@ from django.urls import reverse
 from ckeditor.fields import RichTextField
 import os
 
-# Create your models here.
-class Message(models.Model):
-    name = models.CharField(max_length = 100)
-    email = models.EmailField(verbose_name='Email Address',
-    max_length=255)
-    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number entered was not correctly formated.")
-    phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True)
-    message = models.TextField()
-    is_order = models.BooleanField(default = True)
-    date = models.DateTimeField(auto_now_add = True)
-
-    class Meta:
-        verbose_name_plural = 'Messages'
-
-    def __str__(self):
-        if self.is_order:
-            return f'Sent by {self.name} - (An Order)'
-        return f'Sent by {self.name} - (A Message)'
 
 class Category(models.Model):
     name = models.CharField(max_length = 100)
@@ -100,3 +82,25 @@ class Product(models.Model):
         except:
             pass
         return urls
+
+
+# Create your models here.
+class Message(models.Model):
+    name = models.CharField(max_length = 100)
+    email = models.EmailField(verbose_name='Email Address',
+    max_length=255)
+    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number entered was not correctly formated.")
+    phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True)
+    product_name = models.CharField(null = True, blank = True, max_length = 100)
+    product = models.ForeignKey(Product, on_delete = models.SET_NULL, null = True)
+    message = models.TextField()
+    is_order = models.BooleanField(default = True)
+    date = models.DateTimeField(auto_now_add = True)
+
+    class Meta:
+        verbose_name_plural = 'Messages'
+
+    def __str__(self):
+        if self.is_order:
+            return f'Sent by {self.name} - (An Order)'
+        return f'Sent by {self.name} - (A Message)'

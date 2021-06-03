@@ -139,3 +139,13 @@ MEDIA_URL = '/media/'
 
 # LOGIN_REDIRECT_URL = 'dashboard'
 # LOGIN_URL = 'login'
+
+
+# Emails backend
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = "facerecognition03@gmail.com"
+EMAIL_HOST_PASSWORD = 'finalproject-2020'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
